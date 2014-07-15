@@ -284,12 +284,25 @@ RHIPE is the R and Hadoop Integrated Programming Environment.  RHIPE allows an a
               <p>
 Whether you want to try Tessera on your workstation or you are ready to dig 
 into some big data, we have straightforward options for you to get your Tessera 
-environment up and running.
+environment up and running. You would need to install the following items:
+                </p>
+                <ul>
+                  <li>R 3.1</li>
+                  <li>Hadoop (CDH5 pseudo-distributed mode)</li>
+                  <li>Rhipe 0.74</li>
+                  <li>datadr</li>
+                  <li>Trelliscope</li>
+                  <li>RStudio Server</li>
+                  <li>Shiny Server</li>
+                  <li>Protocol Buffer</li>
+                  <li>Oracle Java</li> 
+                </ul>
+                <p>
               </p>
               <h4><i class="icon-gift"></i>Workstation Installation</h4>
               <div class="quickstart-text">
                 <p>
-After you have installed R, you can get going on a workstration simply by 
+After you have installed R, you can get going on a workstation simply by 
 installing a few R packages.  This setup will restrict you to data sizes 
 commensurate with the hardware of your workstation, but it is sufficient to get 
 a feel for Tessera and to analyze small or even moderate-sized data sets.
@@ -313,19 +326,7 @@ install_github("trelliscope", "tesseradata")</code></pre>
 To get a feel for running in a large-scale Tessera environment, we have 
 provided a <a href="http://www.vagrantup.com">Vagrant</a> setup that with a few 
 simple commands allows you to provision a virtual machine with the entire 
-Tessera stack running, including
-                </p>
-                <ul>
-                  <li>R 3.1</li>
-                  <li>Hadoop (CDH5 pseudo-distributed mode)</li>
-                  <li>Rhipe 0.74</li>
-                  <li>datadr</li>
-                  <li>Trelliscope</li>
-                  <li>RStudio Server</li>
-                  <li>Shiny Server</li>
-                </ul>
-                <p>
-The Vagrant script and instructions are available on 
+Tessera software component running. The Vagrant script and instructions are available on 
 <a href="https://github.com/tesseradata/install-vagrant" target="_blank">Github.</a>
                 </p>
               </div>
@@ -333,9 +334,9 @@ The Vagrant script and instructions are available on
               <h4><i class="icon-cloud"></i>Amazon Elastic MapReduce (EMR)</h4>
               <div class="quickstart-text">
                 <p>
-Setting up and installing all of the Tessera components on a bonafide cluster 
+<!-- Setting up and installing all of the Tessera components on a bonafide cluster 
 requires more commitment in terms of hardware, installation, configuration, and 
-administration.
+administration. -->
                 </p>
                 <p>
 We have provided an easy way to get going with Tessera in a large-scale 

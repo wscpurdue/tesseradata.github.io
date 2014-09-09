@@ -1,181 +1,411 @@
-<html>
-<head><title>Tessera Stack Cluster Installation</title></head>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Tessera Stack Cluster Installation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-<body>
-<h1 style="text-align: center;">Tessera Stack Cluster Installation</h1>
-<hr>
+    <link href="assets/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="assets/custom/custom.css" rel="stylesheet">
+    <!-- font-awesome -->
+    <link href="assets/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 
-<h2>Overview</h2>
-<p>
-The Tessera stack comprises the components RHIPE, Datadr, and Trelliscope. This is a guide to installing all of these components on a multi-node cluster. In particular, installing and running RHIPE requires Hadoop, an embarrassingly parallel computational platform. We have tested the Tessera stack on Debian Linux Derivative - Ubuntu (Version 10.04 or 12.04).
-</p>
+    <!-- prism -->
+    <link href="assets/prism/prism.css" rel="stylesheet">
+    <link href="assets/prism/prism.r.css" rel="stylesheet">
+    <script type='text/javascript' src='assets/prism/prism.js'></script>
+    <script type='text/javascript' src='assets/prism/prism.r.js'></script>
+    
+    
+    
+    <script type="text/javascript" src="assets/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+   MathJax.Hub.Config({    
+     extensions: ["tex2jax.js"],    
+     "HTML-CSS": { scale: 100}    
+   });
+   </script>
+    
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.js"></script>
+    <![endif]-->
+    
+    <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+    <!-- <link href='http://fonts.googleapis.com/css?family=Lustria' rel='stylesheet' type='text/css'> -->
+    <link href='http://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
+    
 
-<p>
-Installion of the Tessera stack should proceed in the following steps:
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="ico/apple-touch-icon-114-precomposed.png">
+      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="ico/apple-touch-icon-72-precomposed.png">
+                    <link rel="apple-touch-icon-precomposed" href="ico/apple-touch-icon-57-precomposed.png">
+                                   <!-- <link rel="shortcut icon" href="ico/favicon.png"> -->
+  </head>
 
-<p>
-<h3> A. Installation Step </h3>
-The following packages (listed in order of installation) are required to run the Tessera stack successfully.
+  <body>
+
+    <div class="container-narrow">
+
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+           
+        </ul>
+        <p class="myHeader">Tessera Stack Cluster Installation</p>
+      </div>
+
+      <hr>
+
+<div class="container-fluid">
+   <div class="row-fluid">
+   
+   <div class="col-md-3 well">
+   <ul class = "nav nav-list" id="toc">
+   <li class='nav-header unselectable' data-edit-href='01.overview.Rmd'>Overview</li>
+      
+      <li class='active'>
+         <a target='_self' class='nav-not-header' href='#content'>Content</a>
+      </li>
+
+
+<li class='nav-header unselectable' data-edit-href='02.install.Rmd'> Installation Step </li>
+      
+      <li class='active'>
+         <a target='_self' class='nav-not-header' href='#system-update-and-packages'>System Update and Packages</a>
+      </li>
+
+
+      <li class='active'>
+         <a target='_self' class='nav-not-header' href='#java'>Java</a>
+      </li>
+
+
+      <li class='active'>
+         <a target='_self' class='nav-not-header' href='#protocol-buffers'>Protocol Buffers</a>
+      </li>
+
+
+      <li class='active'>
+         <a target='_self' class='nav-not-header' href='#hadoop'>Hadoop</a>
+      </li>
+
+
+      <li class='active'>
+         <a target='_self' class='nav-not-header' href='#r'>R</a>
+      </li>
+
+
+      <li class='active'>
+         <a target='_self' class='nav-not-header' href='#binutils-and-rjava'>Binutils and rJava</a>
+      </li>
+
+
+      <li class='active'>
+         <a target='_self' class='nav-not-header' href='#rhipe'>RHIPE</a>
+      </li>
+
+
+      <li class='active'>
+         <a target='_self' class='nav-not-header' href='#r-packages'>R Packages</a>
+      </li>
+
+
+      <li class='active'>
+         <a target='_self' class='nav-not-header' href='#datadr-and-trelliscope'>Datadr and Trelliscope</a>
+      </li>
+
+
+      <li class='active'>
+         <a target='_self' class='nav-not-header' href='#rstudio'>Rstudio</a>
+      </li>
+
+
+      <li class='active'>
+         <a target='_self' class='nav-not-header' href='#shiny-server'>Shiny Server</a>
+      </li>
+
+
+<li class='nav-header unselectable' data-edit-href='03.config.Rmd'>Configuration Step</li>
+      
+      <li class='active'>
+         <a target='_self' class='nav-not-header' href='#host-file'>Host File</a>
+      </li>
+
+
+      <li class='active'>
+         <a target='_self' class='nav-not-header' href='#hadoop-core'>Hadoop Core</a>
+      </li>
+
+
+      <li class='active'>
+         <a target='_self' class='nav-not-header' href='#hadoop-mapreduce'>Hadoop MapReduce</a>
+      </li>
+
+
+<li class='nav-header unselectable' data-edit-href='04.starting.Rmd'>Hadoop Cluster Starting</li>
+      
+      <li class='active'>
+         <a target='_self' class='nav-not-header' href='#starting'>Starting</a>
+      </li>
+
+
+<li class='nav-header unselectable' data-edit-href='05.note.Rmd'> Installation Notes</li>
+      
+      <li class='active'>
+         <a target='_self' class='nav-not-header' href='#node-design'>Node Design</a>
+      </li>
+
+
+      <li class='active'>
+         <a target='_self' class='nav-not-header' href='#raid-and-redundancy-design'>RAID and Redundancy Design</a>
+      </li>
+
+   </ul>
+   </div>
+
+<div class="col-md-9 tab-content" id="main-content">
+
+<div class='tab-pane active' id='content'>
+<h3>Content</h3>
+
+<p>The Tessera stack comprises the components RHIPE, Datadr, and Trelliscope. This is a guide to 
+installing all of these components on a multi-node cluster. In particular, installing and running
+RHIPE requires Hadoop, an embarrassingly parallel computational platform. We have tested the 
+Tessera stack on Debian Linux Derivative - Ubuntu (Version 10.04 or 12.04).</p>
+
+<p>Installion of the Tessera stack should proceed in the following steps:</p>
+
+<ol>
+<li><p>Installation Step
+The following packages (listed in order of installation) are required to run the Tessera stack successfully.</p>
+
 <ul>
-<li> System Update and Packages </li>
-<!-- <li> pkg-config (package configuration) </li> -->
-<li> Sun/Oracle Java - 6 or 7 (For 7 use any release before subversion 51) </li>
-<li> Protocal Buffer - 2.4.1 </li>
-<li> Cloudera Hadoop - cdh3u5 </li>
-<li> R - 3.0.1 </li>
-<li> Binutils (specific to Ubuntu) and rJava - 0.96</li>
-<li> RHIPE - 0.74 </li>
-<li> R Packages: <code>codetools</code>, <code>MASS</code>, <code>lattice</code>, <code>boot</code>, <code>shiny</code>, and <code>devtools</code> </li>
-<li> Datadr </li>
-<li> Trelliscope </li>
-<li> Rstudio (Optional) </li>
-<!-- <li> cmake </li> -->
-<li> Shiny Server </li>
+<li>System Update and Packages</li>
+<li>Sun/Oracle Java - 6 or 7 (For 7 use any release before subversion 51)</li>
+<li>Protocal Buffer - 2.4.1</li>
+<li>Cloudera Hadoop - cdh3u5</li>
+<li>R - 3.0.1</li>
+<li>Binutils (specific to Ubuntu) and rJava - 0.96</li>
+<li>RHIPE - 0.74</li>
+<li>R Packages: codetools, MASS, lattice, boot, shiny, and devtools</li>
+<li>Datadr</li>
+<li>Trelliscope</li>
+<li>Rstudio</li>
+<li>Shiny Server</li>
 </ul>
 
-<i> Note: Some of these packages are updated quite frequently. Please verify that they are compatible with the Tessera stack and Hadoop before installing. </i>
-</p>
+<p>Note: Some of these packages are updated quite frequently. Please verify that they are compatible 
+with the Tessera stack and Hadoop before installing.</p></li>
+<li><p>Configuration Step</p>
 
-<p>
-<h3> B. Configuration Step </h3>
 <ul>
 <li>Host File</li>
-<li>Hadoop Core </li>
-<li>Hadoop MapReduce </li>
-<li>Hadoop HDFS </li>
-</ul>
-</p>
+<li>Hadoop Core</li>
+<li>Hadoop MapReduce</li>
+<li>Hadoop HDFS</li>
+</ul></li>
+<li><p>Hadoop Cluster Starting
+The details of installing each component are described in the subsequent sections.  </p></li>
+</ol>
 
-<h3> C. Hadoop Cluster Starting </h3>
+</div>
 
-<p> The details of installing each component are described in the subsequent sections. </p>
-<br>
 
-<h2> A. Installation Step </h2>
-<p> The steps to install the packages must be done on all the machines of the cluster, unless specified. All the packages are installing using command line.</p>
-<h3> 1. System Update and Packages</h3>
-<p> Firstly, system packages must be updated. </p>
-<pre>sudo apt-get update
-sudo apt-get -y upgrade </pre>
-<p> Now install package config package </p>
-<pre>sudo apt-get install pkg-config </pre>
-<br>
-<h3> 2. Java </h3>
-<p> First install the Sun/Oracle Java repository and then install Java package. </p>
-<pre>
-apt-get install -y python-software-properties
+<div class='tab-pane' id='system-update-and-packages'>
+<h3>System Update and Packages</h3>
+
+<p>The steps to install the packages must be done on all the machines of the cluster, unless specified.
+All the packages are installing using command line.</p>
+
+<p>Firstly, system packages must be updated.</p>
+
+<pre><code class="sh">sudo apt-get update
+sudo apt-get -y upgrade 
+</code></pre>
+
+<p>Now install package config package</p>
+
+<pre><code class="sh">sudo apt-get install pkg-config 
+</code></pre>
+
+</div>
+
+
+<div class='tab-pane' id='java'>
+<h3>Java</h3>
+
+<p>First install the Sun/Oracle Java repository and then install Java package.</p>
+
+<pre><code class="sh">apt-get install -y python-software-properties
 add-apt-repository ppa:webupd8team/java
 apt-get update
 apt-get install -y oracle-java6-installer
-</pre>
-<p> Now add the path to the Java package to your environment </p>
-<pre>
-echo -e "JAVA_HOME=/usr/lib/jvm/java-6-oracle	\
-JAVA_BIN=$JAVA_HOME/bin	\
-PATH=$PATH:$JAVA_HOME:$JAVA_BIN	\
-export JAVA_HOME	\
-export JAVA_BIN	\
-export PATH" >> /etc/profile
-</pre>
-<br>
-<h3> 3. Protocol Buffers </h3>
-<p> Download, compile, and install the protocol buffers. </p>
-<pre>
-wget http://protobuf.googlecode.com/files/protobuf-2.4.1.tar.gz
+</code></pre>
+
+<p>Now add the path to the Java package to your environment</p>
+
+<pre><code class="sh">echo -e &quot;JAVA_HOME=/usr/lib/jvm/java-6-oracle  \
+JAVA_BIN=$JAVA_HOME/bin \
+PATH=$PATH:$JAVA_HOME:$JAVA_BIN \
+export JAVA_HOME    \
+export JAVA_BIN \
+export PATH&quot; &gt;&gt; /etc/profile
+</code></pre>
+
+</div>
+
+
+<div class='tab-pane' id='protocol-buffers'>
+<h3>Protocol Buffers</h3>
+
+<p>Download, compile, and install the protocol buffers.</p>
+
+<pre><code class="sh">wget http://protobuf.googlecode.com/files/protobuf-2.4.1.tar.gz
 sudo tar -xzf protobuf-2.4.1.tar.gz
 cd protobuf-2.4.1
 sudo ./configure
 sudo make
 sudo make install
 sudo ldconfig
-</pre>
-<br>
-<h3> 4. Hadoop </h3>
-<p> Cloudera Hadoop installation is simply done through Aptitude package installer. </p>
-<pre>
-sudo apt-get install -y hadoop-0.20 hadoop-0.20-conf-pseudo \
+</code></pre>
+
+</div>
+
+
+<div class='tab-pane' id='hadoop'>
+<h3>Hadoop</h3>
+
+<p>Cloudera Hadoop installation is simply done through Aptitude package installer.</p>
+
+<pre><code class="sh">sudo apt-get install -y hadoop-0.20 hadoop-0.20-conf-pseudo \
 hadoop-0.20-datanode hadoop-0.20-doc hadoop-0.20-native \
 hadoop-0.20-pipes hadoop-0.20-sbin hadoop-0.20-tasktracker \
 hadoop-0.20-namenode hadoop-0.20-secondarynamenode hadoop-0.20-jobtracker
-</pre>
-</p> Next, add the Hadoop home, binaries, and libraries to environment path. </p>
-<pre>
-echo -e "export HADOOP=/usr/lib/hadoop-0.20	\
-export HADOOP_HOME=$HADOOP	\
-export HADOOP_BIN=$HADOOP/bin	\
-export HADOOP_LIB=$HADOOP/lib	\
-export HADOOP_CONF_DIR=$HADOOP/conf	\
-export PATH=$HADOOP:$HADOOP_BIN:$HADOOP_HOME:$HADOOP_LIB:$PATH" >> /etc/bashrc
-</pre>
-<br>
-<h3> 4. R </h3>
-<p> 
-<pre>
-sudo apt-get install -y r-base r-base-dev r-recommended \
+</code></pre>
+
+<p>Next, add the Hadoop home, binaries, and libraries to environment path.</p>
+
+<pre><code class="sh">echo -e &quot;export HADOOP=/usr/lib/hadoop-0.20 \
+export HADOOP_HOME=$HADOOP  \
+export HADOOP_BIN=$HADOOP/bin   \
+export HADOOP_LIB=$HADOOP/lib   \
+export HADOOP_CONF_DIR=$HADOOP/conf \
+export PATH=$HADOOP:$HADOOP_BIN:$HADOOP_HOME:$HADOOP_LIB:$PATH&quot; &gt;&gt; /etc/bashrc
+</code></pre>
+
+</div>
+
+
+<div class='tab-pane' id='r'>
+<h3>R</h3>
+
+<pre><code class="sh">sudo apt-get install -y r-base r-base-dev r-recommended \
 r-cran-rodbc ess
-</pre>
-<br>
-<h3> 5. Binutils and rJava </h3>
-<p> Binutils and rJava are packages required by RHIPE. Binutils can be installed using the aptitude package installer.</p>
-<pre>sudo apt-get install binutils-gold</pre>
-<p> Before installing rJava ensure that <code>JAVA_HOME</code> environment variable is pointing to the Sun/Oracle installation of Java. If not, log out and log back into the system. rJava needs to be downloaded and installed using R. </p>
-<pre>
-wget http://cran.r-project.org/src/contrib/rJava_0.9-6.tar.gz
+</code></pre>
+
+</div>
+
+
+<div class='tab-pane' id='binutils-and-rjava'>
+<h3>Binutils and rJava</h3>
+
+<p>Binutils and rJava are packages required by RHIPE. Binutils can be installed using the aptitude package installer.</p>
+
+<pre><code class="sh">sudo apt-get install binutils-gold
+</code></pre>
+
+<p>Before installing rJava ensure that <code>JAVA_HOME</code> environment variable is pointing to the Sun/Oracle 
+installation of Java. If not, log out and log back into the system. rJava needs to be downloaded 
+and installed using R.</p>
+
+<pre><code class="sh">wget http://cran.r-project.org/src/contrib/rJava_0.9-6.tar.gz
 sudo R CMD INSTALL rJava_0.9-6.tar.gz
-</pre>
-<br>
-<h3> 6. RHIPE </h3>
-<p> RHIPE is also to be downloaded and installed using R. </p>
-<pre>
-wget https://raw.github.com/saptarshiguha/RHIPE/master/code/RHIPE_0.73.tar.gz
+</code></pre>
+
+</div>
+
+
+<div class='tab-pane' id='rhipe'>
+<h3>RHIPE</h3>
+
+<p>RHIPE is also to be downloaded and installed using R.</p>
+
+<pre><code class="sh">wget https://raw.github.com/saptarshiguha/RHIPE/master/code/RHIPE_0.73.tar.gz
 R CMD INSTALL RHIPE_0.73.tar.gz
-</pre>
-<br>
-<h3> 7. R Packages </h3>
-<p> The R packages <code>codetools</code>, <code>MASS</code>, <code>lattice</code>, <code>boot</code>, <code>shiny</code>, and <code>devtools</code> are required for installing Trelliscope and Datadr. They are installed by using <code>install.packages</code> command in R. </p>
-<pre>sudo R -e "install.packages('codetools', repos='http://cran.rstudio.com/')"
-sudo R -e "install.packages('MASS', repos='http://cran.rstudio.com/')"
-sudo R -e "install.packages('lattice', repos='http://cran.rstudio.com/')"
-sudo R -e "install.packages('boot', repos='http://cran.rstudio.com/')"
-sudo R -e "install.packages('shiny', repos='http://cran.rstudio.com/')"
-sudo R -e "install.packages('devtools', repos='http://cran.rstudio.com/')
-</pre>
-<p> openssl package is also required and can be installed with apititude. </p>
-<pre>sudo apt-get -y install libcurl4-openssl-dev</pre>
-<br>
-<h3> 8. Datadr and Trelliscope </h3>
-<p> Datadr and trelliscope is installed using <code>install_github</code> function and R. </p>
-<pre>
-sudo R -e "options(repos = 'http://cran.rstudio.com/'); library(devtools); install_github('datadr', 'hafen')"
-sudo R -e "options(repos = 'http://cran.rstudio.com/'); library(devtools); install_github('trelliscope', 'hafen')"
-</pre>
-<br>
-<h3> 9. Rstudio (Optional) </h3>
-<p> Rstudio is an optional package. It can be used in lieu of command line R. It needs to be installed only on the Namenode/Jobtracker machine.</p>
-<pre>
-wget http://download2.rstudio.org/rstudio-server-0.98.507-amd64.deb -O /tmp/rstudio-server.deb
+</code></pre>
+
+</div>
+
+
+<div class='tab-pane' id='r-packages'>
+<h3>R Packages</h3>
+
+<p>The R packages codetools, MASS, lattice, boot, shiny, and devtools are required for installing 
+Trelliscope and Datadr. They are installed by using install.packages command in R.</p>
+
+<pre><code class="sh">sudo R -e &quot;install.packages(&#39;codetools&#39;, repos=&#39;http://cran.rstudio.com/&#39;)&quot;
+sudo R -e &quot;install.packages(&#39;MASS&#39;, repos=&#39;http://cran.rstudio.com/&#39;)&quot;
+sudo R -e &quot;install.packages(&#39;lattice&#39;, repos=&#39;http://cran.rstudio.com/&#39;)&quot;
+sudo R -e &quot;install.packages(&#39;boot&#39;, repos=&#39;http://cran.rstudio.com/&#39;)&quot;
+sudo R -e &quot;install.packages(&#39;shiny&#39;, repos=&#39;http://cran.rstudio.com/&#39;)&quot;
+sudo R -e &quot;install.packages(&#39;devtools&#39;, repos=&#39;http://cran.rstudio.com/&#39;)
+</code></pre>
+
+<p>openssl package is also required and can be installed with apititude.</p>
+
+<pre><code class="sh">sudo apt-get -y install libcurl4-openssl-dev
+</code></pre>
+
+</div>
+
+
+<div class='tab-pane' id='datadr-and-trelliscope'>
+<h3>Datadr and Trelliscope</h3>
+
+<p>Datadr and trelliscope is installed using <code>install_github</code> function and R.</p>
+
+<pre><code class="sh">sudo R -e &quot;options(repos = &#39;http://cran.rstudio.com/&#39;); library(devtools); install_github(&#39;datadr&#39;, &#39;hafen&#39;)&quot;
+sudo R -e &quot;options(repos = &#39;http://cran.rstudio.com/&#39;); library(devtools); install_github(&#39;trelliscope&#39;, &#39;hafen&#39;)&quot;
+</code></pre>
+
+</div>
+
+
+<div class='tab-pane' id='rstudio'>
+<h3>Rstudio</h3>
+
+<p>Rstudio is an optional package. It can be used in lieu of command line R. It needs to be installed
+only on the Namenode/Jobtracker machine.</p>
+
+<pre><code class="sh">wget http://download2.rstudio.org/rstudio-server-0.98.507-amd64.deb -O /tmp/rstudio-server.deb
 sudo apt-get -y install gdebi-core
 sudo gdebi --n /tmp/rstudio-server.deb
-</pre>
-<br>
-<h3> 10. Shiny Server </h3>
+</code></pre>
 
-<p> Cmake needs to be compiled for shiny server. </p>        
-<pre>
-wget http://www.cmake.org/files/v2.8/cmake-2.8.12.2.tar.gz
+</div>
+
+
+<div class='tab-pane' id='shiny-server'>
+<h3>Shiny Server</h3>
+
+<p>Cmake needs to be compiled for shiny server.</p>
+
+<pre><code class="sh">wget http://www.cmake.org/files/v2.8/cmake-2.8.12.2.tar.gz
 tar xzf cmake-2.8.12.2.tar.gz
 cd cmake-2.8.12.2
 ./configure
 make
-</pre>
-        
-<p> Shiny-server code is copied from github and compiled. Configuration file is placed in <code>/etc/shiny-server/</code> </p>
-<pre>
-git clone https://github.com/rstudio/shiny-server.git
+</code></pre>
+
+<p>Shiny-server code is copied from github and compiled. Configuration file is placed in <code>/etc/shiny-server/</code></p>
+
+<pre><code class="sh">git clone https://github.com/rstudio/shiny-server.git
 sudo mkdir -p /etc/shiny-server
 sudo cp shiny-server/config/default.config /etc/shiny-server/shiny-server.conf
 
-# Get into a temporary directory in which we'll build the project
+# Get into a temporary directory in which we&#39;ll build the project
 cd shiny-server
 mkdir tmp
 cd tmp
@@ -184,24 +414,24 @@ cd tmp
 DIR=`pwd`
 PATH=$PATH:$DIR/../bin/
 
-# See the "Python" section below if your default python version is not 2.6 or 2.7. 
+# See the &quot;Python&quot; section below if your default python version is not 2.6 or 2.7. 
 PYTHON=`which python`
 
-# Check the version of Python. If it's not 2.6.x or 2.7.x, see the Python section below.
+# Check the version of Python. If it&#39;s not 2.6.x or 2.7.x, see the Python section below.
 $PYTHON --version
 
-# Use cmake to prepare the make step. Modify the "--DCMAKE_INSTALL_PREFIX"
+# Use cmake to prepare the make step. Modify the &quot;--DCMAKE_INSTALL_PREFIX&quot;
 # if you wish the install the software at a different location.
-../../cmake-2.8.12.2/bin/cmake -DCMAKE_INSTALL_PREFIX=/usr/local -DPYTHON="$PYTHON" ../
-# Get an error here? Check the "How do I set the cmake Python version?" question below
+../../cmake-2.8.12.2/bin/cmake -DCMAKE_INSTALL_PREFIX=/usr/local -DPYTHON=&quot;$PYTHON&quot; ../
+# Get an error here? Check the &quot;How do I set the cmake Python version?&quot; question below
 
 # Recompile the npm modules included in the project
 make -j4
 mkdir ../build
-(cd .. && bin/npm --python="$PYTHON" rebuild)
+(cd .. &amp;&amp; bin/npm --python=&quot;$PYTHON&quot; rebuild)
 
-# Need to rebuild our gyp bindings since 'npm rebuild' won't run gyp for us.
-(cd .. && ext/node/lib/node_modules/npm/node_modules/node-gyp/bin/node-gyp.js --python="$PYTHON" rebuild)
+# Need to rebuild our gyp bindings since &#39;npm rebuild&#39; won&#39;t run gyp for us.
+(cd .. &amp;&amp; ext/node/lib/node_modules/npm/node_modules/node-gyp/bin/node-gyp.js --python=&quot;$PYTHON&quot; rebuild)
 
 # Install the software at the predefined location
 sudo make install
@@ -209,7 +439,7 @@ sudo make install
 # POST INSTALL
 # Place a shortcut to the shiny-server executable in /usr/bin
 sudo ln -s /usr/local/shiny-server/bin/shiny-server /usr/bin/shiny-server
-#Create shiny user. On some systems, you may need to specify the full path to 'useradd'
+#Create shiny user. On some systems, you may need to specify the full path to &#39;useradd&#39;
         sudo useradd -r -m shiny
 
 # Create log, config, and application directories
@@ -222,25 +452,39 @@ sudo chown shiny /var/log/shiny-server
 sudo mkdir /srv/shiny-server/examples
 sudo cp -R /usr/local/lib/R/site-library/shiny/examples/* /srv/shiny-server/examples
 sudo chown -R shiny:shiny /srv/shiny-server/examples
-sudo -u shiny nohup shiny-server &
-</pre>
-<br>
-<h2> B. Configuration Step </h2>
-<p> Host file and Hadoop configuration files must be modified to reflect the cluster specific parameters. </p>
-<h3> 1. Host File</h3>
-<p> Host names and host IP addresses of all machines in the RHIPE cluster must be added to host file <code>/etc/hosts</code> on each machine of the cluster. </p> 
-<pre>
-xxx.xxx.xxx.001 node001
+sudo -u shiny nohup shiny-server &amp;
+</code></pre>
+
+</div>
+
+
+<div class='tab-pane' id='host-file'>
+<h3>Host File</h3>
+
+<p>Host file and Hadoop configuration files must be modified to reflect the cluster specific parameters.
+Host names and host IP addresses of all machines in the RHIPE cluster must be added to host file 
+<code>/etc/hosts</code> on each machine of the cluster.</p>
+
+<pre><code>xxx.xxx.xxx.001 node001
 xxx.xxx.xxx.002 node002
 ...
 xxx.xxx.xxx.020 node020
-</pre>
-<p> <code>xxx.xxx.xxx.001</code> represents the IP address of a machine on the cluster. <code>node001</code> is the hostname of the machine. IP address and hostname can be added/removed to the hosts file as and when machines are added and removed from the cluster. The machine's fully qualified domain name or FQDN can also be used as hostnames.</p>
-<br>
-<h3> 2. Hadoop Core </h3>
+</code></pre>
+
+<p><code>xxx.xxx.xxx.001</code> represents the IP address of a machine on the cluster. <code>node001</code> is the hostname of the
+machine. IP address and hostname can be added/removed to the hosts file as and when machines are 
+added and removed from the cluster. The machine&#39;s fully qualified domain name or FQDN can also be used 
+as hostnames.</p>
+
+</div>
+
+
+<div class='tab-pane' id='hadoop-core'>
+<h3>Hadoop Core</h3>
+
 <p>Hadoop <code>core-site.xml</code> file is placed at <code>/etc/hadoop-0.20/conf</code>.</p>
-<pre>
-&lt;?xml version=&quot;1.0&quot;?&gt;
+
+<pre><code>&lt;?xml version=&quot;1.0&quot;?&gt;
 &lt;?xml-stylesheet type=&quot;text/xsl&quot; href=&quot;configuration.xsl&quot;?&gt;
 &lt;configuration&gt;
 &lt;property&gt;
@@ -259,20 +503,24 @@ xxx.xxx.xxx.020 node020
 &lt;name&gt;fs.trash.interval&lt;/name&gt;
 &lt;value&gt;0&lt;/value&gt;
 &lt;/property&gt;
-</pre>
-<p>
+</code></pre>
+
 <ul>
-<li><code>fs.default.name</code> defines your name node. </li>
+<li><code>fs.default.name</code> defines your name node.</li>
 <li><code>hadoop.tmp.dir</code> defines your temporary storing directory for jobs.</li>
 <li><code>fs.checkpoint.dir</code> is where your hdfs checkpoint files are stored.</li>
 <li><code>fs.trash.interval</code> is the amount of time deleted files are stored, in seconds.</li>
 </ul>
-</p>
-<br>
-<h3> 3. Hadoop MapReduce </h3>
-<p> Hadoop <code>mapred-site.xml</code> is used to configure job and task trackers. </p>
-<pre>
-&lt;?xml version=&quot;1.0&quot;?&gt;
+
+</div>
+
+
+<div class='tab-pane' id='hadoop-mapreduce'>
+<h3>Hadoop MapReduce</h3>
+
+<p>Hadoop <code>mapred-site.xml</code> is used to configure job and task trackers.</p>
+
+<pre><code>&lt;?xml version=&quot;1.0&quot;?&gt;
 &lt;?xml-stylesheet type=&quot;text/xsl&quot; href=&quot;configuration.xsl&quot;?&gt;
 &lt;configuration&gt;
 &lt;property&gt;
@@ -303,110 +551,110 @@ xxx.xxx.xxx.020 node020
 &lt;name&gt;mapred.tasktracker.reduce.tasks.maximum&lt;/name&gt;
 &lt;value&gt;n/nodes&lt;/value&gt;
 &lt;/property&gt;
-</pre>
-<p>
+</code></pre>
+
 <ul>
 <li><code>mapred.job.tracker</code> is the hostname of the job tracker node.</li>
 <li><code>mapred.system.dir</code> is where map reduce stores its system files.</li>
 <li><code>mapred.local.dir</code> is where it stores its working files.</li>
 <li><code>mapred.job.tracker.handler.count</code> is the number of job threads.</li>
 <li><code>tasktracker.http.threads</code> is equal to the number of job threads.</li>
-<li><code>mapred.tasktracker.map.tasks.maximum</code> and <code>mapred.tasktracker.reduce.tasks.maximum</code> are equal
+<li><code>mapred.tasktracker.map.tasks.maximum</code> and <code>mapred.tasktracker.reduce.tasks.maximum</code> are equal 
 to the number of threads divided by number of nodes.</li>
 </ul>
-</p>
-<br>
-<h3> 4. Hadoop HDFS </h3>
-<code>hdfs-site.xml</code>
-<pre>
-&lt;?xml version=&quot;1.0&quot;?&gt;
-&lt;?xml-stylesheet type=&quot;text/xsl&quot; href=&quot;configuration.xsl&quot;?&gt;
-&lt;configuration&gt;
-&lt;property&gt;
-&lt;name&gt;dfs.replication&lt;/name&gt;
-&lt;value&gt;n/nodes&lt;/value&gt;
-&lt;/property&gt;
-&lt;property&gt;
-&lt;name&gt;dfs.data.dir&lt;/name&gt;
-&lt;value&gt;/hadoop/data/1/dn,/hadoop/data/2/dn&lt;/value&gt;
-&lt;/property&gt;
-&lt;property&gt;
-&lt;name&gt;dfs.block.size&lt;/name&gt;
-&lt;value&gt;134217728&lt;/value&gt;
-&lt;/property&gt;
-&lt;property&gt;
-&lt;name&gt;dfs.namenode.handler.count&lt;/name&gt;
-&lt;value&gt;n&lt;/value&gt;
-&lt;/property&gt;
-&lt;property&gt;
-&lt;name&gt;dfs.datanode.max.xcievers&lt;/name&gt;
-&lt;value&gt;1024&lt;/value&gt;
-&lt;/property&gt;
-&lt;property&gt;
-</pre>
-<p>
-<ul>
-<li><code>dfs.replication</code> is the number of times data is replicated.</li>
-<li><code>dfs.data.dir</code> is where the data is stored.</li>
-<li><code>dfs.block.size</code> is the size of each data block.</li>
-<li><code>dfs.namenode.handler.count</code> is the number of threads that the name node will handle. Should
-match the number of open threads.</li>
-<li><code>dfs.datanode.max.xcievers</code> Maximum number of open files</li>
-</ul>
-</p>
-<br>
-<h2> C. Hadoop Cluster Starting </h2>
+
+</div>
+
+
+<div class='tab-pane' id='starting'>
+<h3>Starting</h3>
+
 <p>The hadoop cluster must be started in the following order</p>
-<p>On the Namenode and Jobtracker designated machine start the following. If Namenode and Jobtracker processes are to be run on seperate machines, then run these commands seperately.</p>
-<pre>
-service hadoop-0.20-namenode start && service hadoop-0.20-jobtracker start
-</pre>
-<p> On all the machines run the Datanode and Tasktracker processes. If the Datanode and Tasktracker processes are to be run on seperate machines, then start the processes seperately.</p>
-<pre>
-service hadoop-0.20-datanode start && service hadoop-0.20-tasktracker start
-</pre>
-<br>
 
-<h2> Installation Notes </h2>
-<h3> 1. Node Design </h3>
-<p>
+<p>On the Namenode and Jobtracker designated machine start the following. If Namenode and Jobtracker 
+processes are to be run on seperate machines, then run these commands seperately.</p>
+
+<pre><code class="sh">service hadoop-0.20-namenode start &amp;&amp; service hadoop-0.20-jobtracker start
+</code></pre>
+
+<p>On all the machines run the Datanode and Tasktracker processes. If the Datanode and Tasktracker 
+processes are to be run on seperate machines, then start the processes seperately.</p>
+
+<pre><code class="sh">service hadoop-0.20-datanode start &amp;&amp; service hadoop-0.20-tasktracker start
+</code></pre>
+
+</div>
+
+
+<div class='tab-pane' id='node-design'>
+<h3>Node Design</h3>
+
 <ul>
-<li>The Datanode service running on the machines manages the HDFS.</li>
-<li>The Namenode service manages all the datanodes and all blocks of the data. It also manages data redundency. For example, when a disk fails Namenode is the service responsible for moving the data
-around to other nodes to ensure minimum level of replication.</li>
-<li>The Tasktracker service manages the different tasks that are run on each node.</li>
-<li>The Jobtracker service manages these Tasktrackers. It keeps information about which tasktracker
-is running a job and which of them are not. It also allocates jobs to all the tasktrackers and is
-responsible for breaking up the jobs into tasks and distributing it across the cluster.</li>
-
-<li>It must also be noted that in many configurations, the Namenode and the Jobtracker are run on the
-same machine. There are a few situations where these two are run separately.</li>
-<li>Most times the machine(s) that is/are running Namenode and Jobtracker services also run the Datan-
-ode and the Tasktracker service. This is mainly to extract all available computing power.</li>
-<li>Under conditions when the machine(s) that is/are running Namenode and Jobtracker services are not
-very powerful then the Datanode and the Tasktracker services are not run on them.</li>
-<li>The decision to have Datanode and Tasktracker on the Namenode and/or Jobtracker is completely
-dependent on the requirements of each environment.</li>
-<li>On each machine (Datanode and Tasktracker) majority of the available processor cores are used for
-Hadoop and usually a minimal number is kept of other system tasks. For example, on a 4 core Intel
-processor, 3 cores are set aside for Hadoop/Map/Reduce, while one core is allocated for system tasks.
-Similarly, on a 16 Core AMD processor, anywhere between 12 - 14 cores can be set aside for Hadoop
-and the rest for system tasks.</li>
+<li><p>The Datanode service running on the machines manages the HDFS.</p></li>
+<li><p>The Namenode service manages all the datanodes and all blocks of the data. It also manages data 
+redundency. For example, when a disk fails Namenode is the service responsible for moving the data 
+around to other nodes to ensure minimum level of replication.</p></li>
+<li><p>The Tasktracker service manages the different tasks that are run on each node.</p></li>
+<li><p>The Jobtracker service manages these Tasktrackers. It keeps information about which tasktracker 
+is running a job and which of them are not. It also allocates jobs to all the tasktrackers and is 
+responsible for breaking up the jobs into tasks and distributing it across the cluster.</p></li>
+<li><p>It must also be noted that in many configurations, the Namenode and the Jobtracker are run on 
+the same machine. There are a few situations where these two are run separately.</p></li>
+<li><p>Most times the machine(s) that is/are running Namenode and Jobtracker services also run the 
+Datanode and the Tasktracker service. This is mainly to extract all available computing power.</p></li>
+<li><p>Under conditions when the machine(s) that is/are running Namenode and Jobtracker services are not
+very powerful then the Datanode and the Tasktracker services are not run on them.</p></li>
+<li><p>The decision to have Datanode and Tasktracker on the Namenode and/or Jobtracker is completely 
+dependent on the requirements of each environment.</p></li>
+<li><p>On each machine (Datanode and Tasktracker) majority of the available processor cores are used for 
+Hadoop and usually a minimal number is kept of other system tasks. For example, on a 4 core Intel 
+processor, 3 cores are set aside for Hadoop/Map/Reduce, while one core is allocated for system tasks. 
+Similarly, on a 16 Core AMD processor, anywhere between 12 - 14 cores can be set aside for Hadoop and 
+the rest for system tasks.</p></li>
 </ul>
-</p>
 
-<h3> 2. RAID and Redundancy Design </h3>
-<p>
+</div>
+
+
+<div class='tab-pane' id='raid-and-redundancy-design'>
+<h3>RAID and Redundancy Design</h3>
+
 <ul>
-<li>RAID configuration are usually not used for HDFS. That is mainly because Hadoop itself handles
-redundancy.</li>
-<li>But if there is an opportunity to use RAID then it could definitely be used for /boot and / partition.
-This is mainly to ensure that when one of the hard drives go down the RAID configured partition on
-the other hard drive can seamlessly take over.</li>
-<li>The minimum required redundancy configuration for data on Hadoop is 3. This means that each data
-block is copied at 2 other locations other than its primary location. Hadoop has shown that with 3
-copies of each data block high availability is possible.</li>
-</p>
+<li><p>RAID configuration are usually not used for HDFS. That is mainly because Hadoop itself handles 
+redundancy.</p></li>
+<li><p>But if there is an opportunity to use RAID then it could definitely be used for /boot and /partition. 
+This is mainly to ensure that when one of the hard drives go down the RAID configured partition on the 
+other hard drive can seamlessly take over.</p></li>
+<li><p>The minimum required redundancy configuration for data on Hadoop is 3. This means that each data block 
+is copied at 2 other locations other than its primary location. Hadoop has shown that with 3 copies of 
+each data block high availability is possible.</p></li>
+</ul>
+
+</div>
+
+   
+   <ul class="pager">
+      <li><a href="#" id="previous">&larr; Previous</a></li> 
+      <li><a href="#" id="next">Next &rarr;</a></li> 
+   </ul>
+</div>
+
+
+</div>
+</div>
+
 <hr>
+
+<div class="footer">
+   <p>&copy; , 2014</p>
+</div>
+</div> <!-- /container -->
+
+<script src="assets/jquery/jquery.js"></script>
+<script type='text/javascript' src='assets/custom/custom.js'></script>
+<script src="assets/bootstrap/js/bootstrap.js"></script>
+<script src="assets/custom/jquery.ba-hashchange.min.js"></script>
+<script src="assets/custom/nav.js"></script>
+
 </body>
 </html>

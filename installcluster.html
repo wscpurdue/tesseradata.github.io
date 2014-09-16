@@ -1,36 +1,57 @@
 <html>
-<head><title>RHIPE/Datadr/Trelliscope Cluster Installation</title></head>
+<head><title>Tessera Stack Cluster Installation</title></head>
 
 <body>
-<h1 style="text-align: center;">RHIPE/Datadr/Trelliscope Cluster Installation</h1>
+<h1 style="text-align: center;">Tessera Stack Cluster Installation</h1>
 <hr>
-<h3>Introduction</h3>
-This is a guide to install Rhipe/Datadr/Trelliscope on a multi-node cluster. Installing and running Rhipe requires Hadoop, an embarrassingly parallel computational platform and any flavour of Linux as the operating system. In our document we use Debian Linux derivative - Ubuntu. Version 10.04 or 12.04 of Ubuntu can be used for this installation.  
-<br>
-<h3>Required Packages</h3>
-<p> The following packages (in order of installation) are required to run Rhipe/Datadr/Trelliscope successfully.</p>
 
-<p><b>Note</b>: Some of these packages are updated quite frequently please verify that they are compatible with Rhipe/Datadr/Trelliscope and Hadoop before installing them.</p>
+<h2>Overview</h2>
 <p>
+The Tessera stack comprises the components RHIPE, Datadr, and Trelliscope. This is a guide to installing all of these components on a multi-node cluster. In particular, installing and running RHIPE requires Hadoop, an embarrassingly parallel computational platform. We have tested the Tessera stack on Debian Linux Derivative - Ubuntu (Version 10.04 or 12.04).
+</p>
+
+<p>
+Installion of the Tessera stack should proceed in the following steps:
+
+<p>
+<h3> A. Installation Step </h3>
+The following packages (listed in order of installation) are required to run the Tessera stack successfully.
 <ul>
-<li> pkg-config (package configuration) </li>
+<li> System Update and Packages </li>
+<!-- <li> pkg-config (package configuration) </li> -->
 <li> Sun/Oracle Java - 6 or 7 (For 7 use any release before subversion 51) </li>
-<li> Protocol Buffer - 2.4.1 </li>
+<li> Protocal Buffer - 2.4.1 </li>
 <li> Cloudera Hadoop - cdh3u5 </li>
 <li> R - 3.0.1 </li>
-<li> Rhipe - 0.73 </li>
-<li> Binutils (specific to Ubuntu) </li>
-<li> rJava - 0.96 </li>
-<li> R packages - codetools, MASS, lattice, boot, shiny, and devtools </li> 
-<li> datadr </li>
-<li> trelliscope </li>
-<li> Rstudio </li>
-<li> cmake </li>
-<li> Shiny server </li>
+<li> Binutils (specific to Ubuntu) and rJava - 0.96</li>
+<li> RHIPE - 0.74 </li>
+<li> R Packages: <code>codetools</code>, <code>MASS</code>, <code>lattice</code>, <code>boot</code>, <code>shiny</code>, and <code>devtools</code> </li>
+<li> Datadr </li>
+<li> Trelliscope </li>
+<li> Rstudio (Optional) </li>
+<!-- <li> cmake </li> -->
+<li> Shiny Server </li>
+</ul>
+
+<i> Note: Some of these packages are updated quite frequently. Please verify that they are compatible with the Tessera stack and Hadoop before installing. </i>
+</p>
+
+<p>
+<h3> B. Configuration Step </h3>
+<ul>
+<li>Host File</li>
+<li>Hadoop Core </li>
+<li>Hadoop MapReduce </li>
+<li>Hadoop HDFS </li>
 </ul>
 </p>
+
+<h3> C. Hadoop Cluster Starting </h3>
+
+<p> The details of installing each component are described in the subsequent sections. </p>
 <br>
-<h3> Installation</h3>
+
+<h2> A. Installation Step </h2>
 <p> The steps to install the packages must be done on all the machines of the cluster, unless specified. All the packages are installing using command line.</p>
 <h3> 1. System Update and Packages</h3>
 <p> Firstly, system packages must be updated. </p>
@@ -94,8 +115,8 @@ sudo apt-get install -y r-base r-base-dev r-recommended \
 r-cran-rodbc ess
 </pre>
 <br>
-<h3> 5. Binutils and rJava (required for Rhipe) </h3>
-<p> Binutils and rJava are packages required by Rhipe. Binutils can be installed using the aptitude package installer.</p>
+<h3> 5. Binutils and rJava </h3>
+<p> Binutils and rJava are packages required by RHIPE. Binutils can be installed using the aptitude package installer.</p>
 <pre>sudo apt-get install binutils-gold</pre>
 <p> Before installing rJava ensure that <code>JAVA_HOME</code> environment variable is pointing to the Sun/Oracle installation of Java. If not, log out and log back into the system. rJava needs to be downloaded and installed using R. </p>
 <pre>
@@ -103,15 +124,15 @@ wget http://cran.r-project.org/src/contrib/rJava_0.9-6.tar.gz
 sudo R CMD INSTALL rJava_0.9-6.tar.gz
 </pre>
 <br>
-<h3> 6. Rhipe </h3>
-<p> Rhipe too is to be downloaded and installed using R. </p>
+<h3> 6. RHIPE </h3>
+<p> RHIPE is also to be downloaded and installed using R. </p>
 <pre>
-wget https://raw.github.com/saptarshiguha/RHIPE/master/code/Rhipe_0.73.tar.gz
-R CMD INSTALL Rhipe_0.73.tar.gz
+wget https://raw.github.com/saptarshiguha/RHIPE/master/code/RHIPE_0.73.tar.gz
+R CMD INSTALL RHIPE_0.73.tar.gz
 </pre>
 <br>
-<h3> 7. Packages Required by Trelliscope and Datadr </h3>
-<p> R packages - codetools, lattice, MASS, boot, shiny, and devtools are needed for trelliscope and datadr. They are installed by using <code>install.packages</code> command in R. </p>
+<h3> 7. R Packages </h3>
+<p> The R packages <code>codetools</code>, <code>MASS</code>, <code>lattice</code>, <code>boot</code>, <code>shiny</code>, and <code>devtools</code> are required for installing Trelliscope and Datadr. They are installed by using <code>install.packages</code> command in R. </p>
 <pre>sudo R -e "install.packages('codetools', repos='http://cran.rstudio.com/')"
 sudo R -e "install.packages('MASS', repos='http://cran.rstudio.com/')"
 sudo R -e "install.packages('lattice', repos='http://cran.rstudio.com/')"
@@ -204,10 +225,10 @@ sudo chown -R shiny:shiny /srv/shiny-server/examples
 sudo -u shiny nohup shiny-server &
 </pre>
 <br>
-<h3> Configuration</h3>
+<h2> B. Configuration Step </h2>
 <p> Host file and Hadoop configuration files must be modified to reflect the cluster specific parameters. </p>
 <h3> 1. Host File</h3>
-<p> Host names and host IP addresses of all machines in the Rhipe cluster must be added to host file <code>/etc/hosts</code> on each machine of the cluster. </p> 
+<p> Host names and host IP addresses of all machines in the RHIPE cluster must be added to host file <code>/etc/hosts</code> on each machine of the cluster. </p> 
 <pre>
 xxx.xxx.xxx.001 node001
 xxx.xxx.xxx.002 node002
@@ -216,8 +237,8 @@ xxx.xxx.xxx.020 node020
 </pre>
 <p> <code>xxx.xxx.xxx.001</code> represents the IP address of a machine on the cluster. <code>node001</code> is the hostname of the machine. IP address and hostname can be added/removed to the hosts file as and when machines are added and removed from the cluster. The machine's fully qualified domain name or FQDN can also be used as hostnames.</p>
 <br>
-<h3> 2. Hadoop <code>core-site.xml</code></h3>
-<p>Hadoop core-site.xml file is placed at <code>/etc/hadoop-0.20/conf</code>.</p>
+<h3> 2. Hadoop Core </h3>
+<p>Hadoop <code>core-site.xml</code> file is placed at <code>/etc/hadoop-0.20/conf</code>.</p>
 <pre>
 &lt;?xml version=&quot;1.0&quot;?&gt;
 &lt;?xml-stylesheet type=&quot;text/xsl&quot; href=&quot;configuration.xsl&quot;?&gt;
@@ -248,7 +269,7 @@ xxx.xxx.xxx.020 node020
 </ul>
 </p>
 <br>
-<h3> 3. Hadoop <code>mapred-site.xml</code></h3>
+<h3> 3. Hadoop MapReduce </h3>
 <p> Hadoop <code>mapred-site.xml</code> is used to configure job and task trackers. </p>
 <pre>
 &lt;?xml version=&quot;1.0&quot;?&gt;
@@ -295,7 +316,8 @@ to the number of threads divided by number of nodes.</li>
 </ul>
 </p>
 <br>
-<h3> 4. Hadoop <code>hdfs-site.xml</code></h3>
+<h3> 4. Hadoop HDFS </h3>
+<code>hdfs-site.xml</code>
 <pre>
 &lt;?xml version=&quot;1.0&quot;?&gt;
 &lt;?xml-stylesheet type=&quot;text/xsl&quot; href=&quot;configuration.xsl&quot;?&gt;
@@ -333,7 +355,7 @@ match the number of open threads.</li>
 </ul>
 </p>
 <br>
-<h3> Hadoop Cluster Starting</h3>
+<h2> C. Hadoop Cluster Starting </h2>
 <p>The hadoop cluster must be started in the following order</p>
 <p>On the Namenode and Jobtracker designated machine start the following. If Namenode and Jobtracker processes are to be run on seperate machines, then run these commands seperately.</p>
 <pre>
@@ -345,7 +367,7 @@ service hadoop-0.20-datanode start && service hadoop-0.20-tasktracker start
 </pre>
 <br>
 
-<h3> Notes </h3>
+<h2> Installation Notes </h2>
 <h3> 1. Node Design </h3>
 <p>
 <ul>
@@ -388,3 +410,4 @@ copies of each data block high availability is possible.</li>
 <hr>
 </body>
 </html>
+

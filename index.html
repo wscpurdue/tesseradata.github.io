@@ -100,13 +100,11 @@
                   <i class="icon-lightning"></i>
                 </div>
               </div>
-              <h4>The Power of Divide&amp;Recombine and R</h4>
+              <h4>The Power of Divide &amp; Recombine and R</h4>
               <!-- <hr class="big-hr black"> -->
               <p>
-Tessera implements the D&amp;R statistical approach for deep analysis of larger and
-more complex data that leads to very simple parallel computation. You program in
-the elegantly designed, powerful R language, and can apply the 1000s of
-methods of statistics, machine learning, and visualization in R.
+Tessera implements the D&amp;R statistical approach for deep analysis of larger and more complex data that leads to very simple parallel computation. You
+program in the elegantly designed, powerful R language front end, and can apply the 1000s of methods of statistics, machine learning, and visualization in R.
 <!-- With Tessera, if you know R, you can analyze big data. -->
               </p>
               <p class="page-scroll">
@@ -128,9 +126,9 @@ methods of statistics, machine learning, and visualization in R.
               <!-- <hr class="big-hr black"> -->
               <p>
 The Tessera back end is a parallel computing environment doing D&amp;R
-computations managed for you by Tessera. From a workstation, to a small cluster,
-to a very high-end cluster, Tessera can greatly increase the size and
-complexity of data you are able to analyze.  Getting started is easy.
+computations managed for you by Tessera. Whether you compute on a workstation,
+a small cluster, or a very high-end cluster, Tessera can greatly increase the
+size and complexity of data you are able to analyze.  Getting started is easy.
               </p>
 
               <p class="page-scroll">
@@ -159,9 +157,9 @@ complexity of data you are able to analyze.  Getting started is easy.
               <!-- <hr class="big-hr black"> -->
               <p>
 Between the R front end and the parallel computational back end are Tessera R
-packages that make it easy for you to program D&amp;R: datadr, Trelliscope,
-and RHIPE. Our resources help you to learn these and to read about D&amp;R
-statistics, and they invite you to join developer and user groups.
+packages --- datadr, Trelliscope,  &amp; RHIPE --- that make it easy for you to
+program D&amp;R. Our resources help you to learn these and to read about
+D&amp;R statistics. And they invite you to join developer and user groups.
               </p>
               <p>
                 <span class="page-scroll"><a href="#resources">Resources
@@ -184,7 +182,8 @@ statistics, and they invite you to join developer and user groups.
 Development of Tessera began and continues to be driven by our team's work
 on deep statistical analysis of large complex data.  Our expertise covers all
 areas of data science, from cluster hardware design for large
-complex data to theoretical statistics to projects analyzing large complex data.
+complex data to theoretical statistics to our projects analyzing large complex
+data.
               </p>
               <p class="page-scroll">
                 <a href="#aboutus">About Us
@@ -206,9 +205,7 @@ complex data to theoretical statistics to projects analyzing large complex data.
           <h2>Tessera Components</h2>
           <hr class="big-hr black">
           <p>
-The Tessera computational environment is powered by the statistical approach
-Divide&amp;Recombine. D&amp;$
-At the front end, the analyst programs in R. At the back end is a distributed parallel computational environment such as Hadoop. In between are three Tessera packages: datadr, Trelliscope, and RHIPE. These packages enable the data scientist to communicate with the back end by simple R commands.
+
           </p>
         </div>
       </div>
@@ -218,11 +215,28 @@ At the front end, the analyst programs in R. At the back end is a distributed pa
       <div class="row featurette">
         <div class="col-md-7">
           <h3 class="featurette-heading">
-            <span class="text-danger">Divide and Recombine (D&amp;R) Statistical Methods</span>
+            <span class="text-danger">Divide and Recombine (D&amp;R)
+           </span>
           </h3>
             <p>
-Tessera is powered by Divide and Recombine. In D&amp;R, we seek meaningful ways to divide the data into subsets, apply statistical methods to each subset independently, and recombine the results of those computations in a statistically valid way.  Sometimes the results are approximations of the exact result had we been able to process the data as a whole, but the potential slight loss in accuracy is a small penalty to pay for the simple, fast computation.  In D&amp;R, the data are parallelized, not the statistical methods.  Thus we have access the existing vast library of methods available in R.  
-<!-- D&amp;R statistics research seeks division and recombination methods to maximize the accuracy of a result and to characterize its statistical variability. -->
+A statistical division method
+divides the data into subsets that are stored in objects with the same data
+structure. Each analytic method of the analysis is
+applied to the subsets independently without communication among the
+computations, which makes them embarrassingly parallel, the simplest parallel
+computation. A statistical recombination method is applied to the outputs of
+each analytic method, also stored with the same data structure, to form the
+final D&amp;R result. The recombination can have a significant component of
+embarrassingly parallel computation. All of this makes D&amp;R computation
+very simple, fast, and readily able to exploit parallel computational
+environments, especially
+distributed ones like Hadoop running on a cluster. Statistical accuracy of
+D&amp;R results is important too. It depends strongly on the
+division and recombination methods.  D&amp;R research in statistical theory
+seeks methods that lead to high accuracy. This research replaces having to
+develop parallel algorithms for the 1000s of methods of statistics, machine
+learning, and visualization.  See our publications below, some of
+which address D&amp;R statistics.
           </p>
         </div>
         <div class="col-md-5">
@@ -235,16 +249,30 @@ Tessera is powered by Divide and Recombine. In D&amp;R, we seek meaningful ways 
       <div class="row featurette">
         <div class="col-md-7">
           <h3 class="featurette-heading">
-            <span class="text-danger">Tessera: The D&amp;R Computational Environment with Hadoop</span>
+            <span class="text-danger">
+Tessera with Hadoop at the Back End</span>
           </h3>
             <p>
-            (FILLER WORDS)
-Tessera is powered by Divide and Recombine. In D&amp;R, we seek meaningful ways to divide the data into subsets, apply statistical methods to each subset independently, and recombine the results of those computations in a statistically valid way.  Sometimes the results are approximations of the exact result had we been able to process the data as a whole, but the potential slight loss in accuracy is a small penalty to pay for the simple, fast computation.  In D&amp;R, the data are parallelized, not the statistical methods.  Thus we have access the existing vast library of methods available in R.  
-<!-- D&amp;R statistics research seeks division and recombination methods to maximize the accuracy of a result and to characterize its statistical variability. -->
+Tessera is powered by D&amp;R.
+R was an obvious choice for a front end. We will stick with R
+until something better comes along. But we have a wide choice for back ends to
+carry out the parallel computation.
+Our first choice, with more options to follow, was Hadoop because it is
+very available from many sources and widely supported. Hadoop distributes
+D&amp;R subsets across the nodes (servers) of a cluster, on disk. Those
+nodes do the  D&amp;R parallel computation too. One critical outcome is that
+we can analyze a dataset whose total memory size is greater than the total
+memory of the cluster nodes. This is routine for us on in our data analysis
+projects, for projects of many others. There is much talk today
+about putting all data in memory to speed things up. We expect to add this to
+Tessera in the future, but it is a luxury, nice when feasible, but if relied
+on completely, is very limiting in the size and complexity of data that can be
+analyzed.
           </p>
         </div>
         <div class="col-md-5">
-          <img class="featurette-image img-responsive" src="images/drdiagram.png" alt="divide and recombine">
+          <img class="featurette-image img-responsive"
+src="images/rhipe.png" alt="rhipe">
         </div>
       </div>
 
@@ -256,7 +284,17 @@ Tessera is powered by Divide and Recombine. In D&amp;R, we seek meaningful ways 
             <span class="text-danger">datadr</span>
           </h3>
           <p>
-The datadr R package provides a high-level interface to D&amp;R operations, making specification of divisions, analytic methods, and recombinations easy.  It represents large datasets as native R objects and allows D&amp;R operations to  be run against them.  In addition to division and recombination methods, datadr also provides several indispensable tools for reading and manipulating data as well as a collection of standard division-independent statistical methods.  The interface is designed to be back end agnostic, so that as new distributed computing technology comes along, datadr will be able to harness it.
+The datadr R package provides a high-level interface to D&amp;R operations,
+making specification of divisions, analytic methods, and recombinations easy.
+One critical aspect is that it you can swap back ends without changing
+the user commands. Also, as new distributed computing technology comes along,
+datadr will be able to harness it. When the back end is Hadoop, datadr
+communicates with our RHIPE package coming below. datadr represents divisions
+as native R objects and allows D&amp;R operations to be run against them.
+In addition to division and recombination methods, datadr also provides
+several indispensable tools for reading and manipulating data as well as a
+collection of standard division-independent statistical methods.
+
           </p>
         </div>
         <div class="col-md-5">
@@ -288,11 +326,29 @@ Trelliscope is a visualization tool based on Trellis Display that enables scalab
             <span class="text-danger">RHIPE</span>
           </h3>
           <p>
-RHIPE is the R and Hadoop Integrated Programming Environment.  RHIPE allows an analyst to run Hadoop MapReduce jobs wholly from within R.  RHIPE is used by datadr when the back end for datadr is Hadoop.  You can also perform D&amp;R operations directly through RHIPE MapReduce jobs, as MapReduce is sufficient for D&amp;R, although in this case you are programming at a lower level than for datadr.
+RHIPE, the  R and Hadoop Integrated
+Programming Environment,  is a merger of R and Hadoop.
+It means ``in a moment'' in Greek, and is pronounced
+``hree PAY.'' It provides communication between R and Hadoop. You can use it
+to carry out D&amp;R data analysis.  In R, the analyst passes the  R code for
+division methods, analytic methods, and recombination methods to RHIPE  R
+routines that communicate with Hadoop. In doing this, the analyst calls for
+certain Hadoop features such as key-value pairs, and the Map and Reduce
+computational operations. RHIPE does protect you from almost all of the immense
+detail of Hadoop. But datadr protects you even more. datadr communicates
+with RHIPE which then communicates with Hadoop. One way to think of this is
+that RHIPE entails progamming at a lower level than datadr.
           </p>
         </div>
         <div class="col-md-5">
-          <img class="featurette-image img-responsive" src="images/rhipe.png" alt="rhipe">
+
+          <img class="featurette-image img-responsive" src="images/runner.png"
+alt="R and Hadoop Integrated Programming Environment">
+ <h1 class="featurette-heading">
+            <span class="text-danger"> <font color="black"> RHIPE </font></span>
+          </h1>
+          <h1 class="featurette-heading">
+          </h1>
         </div>
       </div>
     </div>
@@ -317,8 +373,9 @@ RHIPE is the R and Hadoop Integrated Programming Environment.  RHIPE allows an a
               <!-- <hr class="big-hr black"> -->
               <p>
 Whether you want to try Tessera on your workstation or you are ready to dig 
-into some big data, we have straightforward options for you to get your Tessera 
-environment up and running. You would need to install the following items:
+into some large complex data, we have straightforward options for you to get
+your Tessera environment up and running. You would need to install the
+following items:
                 </p>
                 <ul>
                   <li>R 3.1</li>

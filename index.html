@@ -351,15 +351,22 @@ alt="R and Hadoop Integrated Programming Environment">
         </div>
       </div>
 
+      <hr class="featurette-divider">
+
       <div class="row featurette">
         <div class="col-md-7">
           <h3 class="featurette-heading">
             <span class="text-danger">
-Other Software in the Tessera Stack</span>
+Other Software in Tessera </span>
           </h3>
             <p>
-(Filler words) Other software in the Tessera Stack include RStudio Server,
-Shiny Server, Protocol Buffer, and Oracle Java.
+Tessera makes use of software developed by others in addition to R and Hadoop.
+RHIPE uses Google protocol buffers to communicate with Hadoop, and it needs
+Oracle Java. There are two packages from RStudio. The first is RStudio Server,
+their Integrated Development Environment (IDE) for R, that for good reason is
+very widely used; it fits in nicely in the Tessera stack. The second is RStudio
+Shiny Server, used by Trelliscope to provide a web interface for the
+visualization. 
           </p>
         </div>
         <div class="col-md-5">
@@ -391,13 +398,43 @@ src="images/others.png" alt="rhipe">
         <div class="col-lg-12">
           <div class="panel quickstart-panel">
             <div class="panel-body">
-              <h3>Cluster Installation</h3>
+              <h3>Installation Overview</h3>
       <!-- <hr class="big-hr black"> -->
               <p>
-There a many ways to get started with
-              Setting up and installing all the components of the Tessera stack on a bonafide cluster 
-requires more commitment in terms of hardware, installation, configuration, and 
-administration, but we strive to make the procedure as smooth as possible. 
+We provide four ways to get started with Tessera:
+<p>
+<font color="red">
+1 Workstation. 2 Vagrant Virtual Machine. 3 Amazon Elastic MapReduce.
+4 Install on Your Own Cluster.
+</font>
+</p>
+              <p>
+Just to review, here are the Tessera software components
+                </p>
+                <ul>
+                  <li>R</li>
+                  <li>Hadoop</li>
+                  <li>Rhipe</li>
+                  <li>datadr</li>
+                  <li>Trelliscope</li>
+                  <li>RStudio Server</li>
+                  <li>Shiny Server</li>
+                  <li>Protocol Buffers</li>
+                  <li>Oracle Java</li>
+                </ul>
+                <p>
+
+<p>
+The first three are QuickStarts, very easy to carry out and described next.
+The second three have the full Tessera Software stack. For Vagrant and Amazon
+it is quick and easy because the components are bundled up for you and ready
+to go. For Workstation it is quick and easy because you just install
+datadr, Trelliscope, and a couple of R packages.
+</p>
+<p>
+Installing on your own cluster is
+more complex, and typically requires collaboration with your IT staff. Our
+cluster installation manual is HERE.
               </p>
             </div>
           </div>
@@ -413,20 +450,17 @@ administration, but we strive to make the procedure as smooth as possible.
               <h3>Install</h3>
               <!-- <hr class="big-hr black"> -->
               <p>
-Whether you want to try Tessera on your workstation or you are ready to dig 
-into some large complex data, we have straightforward options for you to get
-your Tessera environment up and running. You would need to install the
-following items:
+Just to review, here are the Tessera software components
                 </p>
                 <ul>
-                  <li>R 3.1</li>
-                  <li>Hadoop (CDH5 pseudo-distributed mode)</li>
-                  <li>Rhipe 0.74</li>
+                  <li>R</li>
+                  <li>Hadoop</li>
+                  <li>Rhipe</li>
                   <li>datadr</li>
                   <li>Trelliscope</li>
                   <li>RStudio Server</li>
                   <li>Shiny Server</li>
-                  <li>Protocol Buffer</li>
+                  <li>Protocol Buffers</li>
                   <li>Oracle Java</li> 
                 </ul>
                 <p>
